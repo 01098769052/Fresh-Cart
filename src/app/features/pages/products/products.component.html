@@ -1,0 +1,17 @@
+<!-- product component -->
+<h1 class="my-12 text-5xl text-center font-bold dark:text-white"><span class="text-green-700 dark:text-blue-700">FreshCart</span> Products</h1>
+<div class="my-11 w-3/4 md:w-1/2 mx-auto">
+    <input type="text" class="input" placeholder="search..." [(ngModel)]="search">
+ </div>
+<section class="w-[90%] mx-auto gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-stretch">
+    @if (products&&wishList) {
+        @for (product of products|productSearch:search; track product._id) {
+          <app-product-card [product]="product" [wishList]="wishList"></app-product-card>
+        }
+    }
+    @else{
+      @for (product of products|productSearch:search; track product._id) {
+        <app-product-card [product]="product"></app-product-card>
+      }
+    }
+</section>

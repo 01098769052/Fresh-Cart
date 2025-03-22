@@ -1,0 +1,13 @@
+<!-- Categories component -->
+<h1 class="my-12 text-5xl text-center font-bold dark:text-white"><span class="text-green-700 dark:text-blue-700">FreshCart</span> Categories</h1>
+<div class="my-11 w-3/4 md:w-1/2 mx-auto">
+    <input type="text" class="input" placeholder="search..." [(ngModel)]="search">
+ </div>
+<section class="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch">
+    @for (category of categories|categorySearch:search; track category._id) {
+        <app-category-card [category]="category" (deferFlag)="deferFlag = $event" (categoryId)="categoryId = $event"></app-category-card>
+    }
+</section>
+@defer (when deferFlag) {
+    <app-subcategories [categoryId]="categoryId"></app-subcategories>
+}

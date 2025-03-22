@@ -1,0 +1,14 @@
+<!-- WishList Component -->
+<section class="w-[90%] mx-auto bg-gray-100 p-3 rounded-lg">
+    <div class="mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold mb-3">Wish List <i class="ml-1 text-red-700 fa-solid fa-heart"></i></h1>
+            <h2 class="text-xl font-semibold">Total number of items : {{wishListCount}}</h2>
+        </div>
+    </div>
+    <ul class="flex flex-col gap-y-8">
+        @for (wishProduct of wishList; track $index) {
+            <app-wish-product [wishProduct]="wishProduct" [wishProductIndex]="$index" (removeWishProductEmitter)="removeWishProductEmitter=$event" (removeWishProductIndex)="removeWishProductIndex=$event"></app-wish-product>
+        }
+    </ul>
+</section>

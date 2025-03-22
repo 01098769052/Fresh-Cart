@@ -1,0 +1,43 @@
+<!-- product details component --> 
+<section class="w-[80%] mx-auto grid lg:grid-cols-5 gap-7">
+    <div class="lg:col-span-2 flex justify-center items-center">
+        <div class="w-60">
+            <owl-carousel-o [options]="customOptions">
+                @for (image of product.images; track $index) {
+                    <ng-template carouselSlide>
+                        <img [src]="image" [alt]="product.title" class="h-72 object-cover rounded-md">
+                      </ng-template>
+                }
+              </owl-carousel-o>
+        </div>
+    </div>    
+<div class="relative lg:col-span-3 bg-gray-100 flex flex-col justify-between p-3 rounded-lg">
+        <div>
+            <h1 class="mb-3 text-2xl font-bold">{{product.title|titlecase}}</h1>
+            <p>{{product.description|lowercase}}</p>
+        </div>
+        <div class="mt-7">
+            <span class="block text-gray-500">{{product.category.name|lowercase}}</span>
+            <ul class="flex justify-between">
+                <li class="font-semibold">{{product.price|currency:'EGP'}}</li>
+                <li class="text-gray-500"><i class="fas fa-star text-yellow-300"></i> {{product.ratingsAverage}}</li>
+            </ul>
+            <button (click)="addToCart(pId)" [disabled]="addToCartLoading"  class="main-btn w-full mt-4 flex items-center justify-center gap-x-7 text-[1.1rem]">Add to cart <i class="fa-solid fa-cart-plus"></i>
+                @if (addToCartLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                  }
+            </button>
+        </div>
+        @if (!updateWishProductLoading) {
+            @if(!heartwishFlag){
+              <i (click)="addToWishList(product._id)" class="absolute end-0 -translate-y-1/2 text-3xl md:text-3xl fa-regular fa-heart hover:scale-[1.4] hover:cursor-pointer transition-transform duration-[0.3s]"></i>
+            }
+            @else {
+              <i (click)="removeFromWishList(product._id)" class="absolute end-0 -translate-y-1/2 text-3xl md:text-3xl fa-solid fa-heart text-red-700 hover:scale-[1.4] hover:cursor-pointer transition-transform duration-[0.3s]"></i>
+            }
+          }
+          @else {
+            <i class="absolute end-0 -translate-y-1/2 text-3xl md:text-3xl fa-solid fa-spinner fa-spin opacity-70"></i>
+          }
+</div>
+</section>

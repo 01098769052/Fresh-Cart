@@ -1,0 +1,35 @@
+<!-- reusable cart Product Component -->
+<li class="flex justify-center flex-wrap gap-y-4 border-b-2 shadow-md rounded-md border-gray-300 sm:justify-between sm:flex-nowrap">
+    <div class="flex gap-4 items-center justify-center flex-wrap sm:flex-nowrap sm:justify-start sm:w-[70%]">
+        <img [src]="cartProduct.product.imageCover" [alt]="cartProduct.product.title" class="w-60 h-48 object-cover rounded-md sm:h-auto sm:w-24 sm:object-fill">
+        <div class="flex flex-col justify-center gap-y-2 px-3 sm:gap-y-1 sm:text-start sm:px-0">
+            <h2 class="text-xl font-semibold">{{cartProduct.product.title|titlecase}}</h2>
+            <span class="text-green-400 dark:text-blue-400">Price : {{cartProduct.price * cartProduct.count|currency:'EGP'}}</span>
+            <button (click)="removeItem(cartProduct.product._id)" [disabled]="removeItemLoading" class="flex justify-around items-center gap-x-3 text-red-600 hover:text-red-700 w-[5rem]"><div class="flex items-center gap-x-1">Remove <i class="fa-regular fa-trash-can"></i></div>
+                @if (removeItemLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                }
+            </button>
+        </div>
+    </div>
+    <div class="self-center mb-5 sm:mb-0">
+        @if (updateItemLoading) {
+            <p class="text-center text-green-500 dark:text-blue-500"><i class="fa-solid fa-spinner fa-spin"></i></p>
+        }
+        <form class="max-w-xs mx-auto">
+            <div class="relative flex items-center">
+                <button (click)="updateItemCount(cartProduct.product._id,cartProduct.count-1)" [disabled]="updateItemLoading" type="button" id="decrement-button" data-input-counter-decrement="counter-input" class="border-green-400 shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border-2 rounded-md sm:h-10 sm:w-8 h-14 w-12 mb-1 sm:mb-0 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                    <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                    </svg>
+                </button>
+                <input type="text" id="counter-input" data-input-counter class="shrink-0 text-black border-0 text-sm font-normal bg-transparent focus:outline-none focus:ring-0 max-w-[2.7rem] text-center" [value]="cartProduct.count" required />
+                <button (click)="updateItemCount(cartProduct.product._id,cartProduct.count+1)" [disabled]="updateItemLoading" type="button" id="increment-button" data-input-counter-increment="counter-input" class="border-green-400 shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border-2 rounded-md sm:h-10 sm:w-8 h-14 w-12 mb-1 sm:mb-0 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                    <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</li>

@@ -1,0 +1,74 @@
+<!-- signUp component -->
+<form [formGroup]="signUpForm" class="w-[85%] sm:w-[75%] md:w-[65%] lg:w-[55%] mx-auto" (ngSubmit)="signUp()">
+    <h1 class="text-3xl mb-7 font-bold dark:text-white"><span class="text-green-700 dark:text-blue-700">Sign up</span> Now :</h1>
+    @if (errorMessage!=null) {
+      <app-alert [alertType]="'Sign up'" [alertMessage]="errorMessage"></app-alert>
+    }
+    <div class="mb-4">
+      <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name :</label>
+      <input formControlName="name" type="text" id="text" class="input" placeholder="Enter your name" required />
+      @if (signUpForm.get('name')?.touched) {
+        @if (signUpForm.get('name')?.getError('required')) {
+            <app-alert [alertType]="'Name'" [alertMessage]="'name required'"></app-alert>
+        }
+        @else if(signUpForm.get('name')?.getError('pattern')){
+            <app-alert [alertType]="'Name'" [alertMessage]="'Username must be 3-30 characters long, contain only letters, and may include spaces, underscores, or hyphens (but cannot start or end with them).'"></app-alert>
+        }
+      }
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email :</label>
+      <input formControlName="email" type="email" id="email" class="input" placeholder="Enter your email" required />
+      @if (signUpForm.get('email')?.touched) {
+        @if (signUpForm.get('email')?.getError('required')) {
+            <app-alert [alertType]="'email'" [alertMessage]="'email required'"></app-alert>
+        }
+        @else if(signUpForm.get('email')?.getError('email')){
+            <app-alert [alertType]="'email'" [alertMessage]="'Enter a valid email address (e.g., example@email.com).'"></app-alert>
+        }
+      }
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password :</label>
+      <input formControlName="password" type="password" id="password" class="input" placeholder="Enter your password" required />
+      @if (signUpForm.get('password')?.touched) {
+        @if (signUpForm.get('password')?.getError('required')) {
+            <app-alert [alertType]="'password'" [alertMessage]="'password required'"></app-alert>
+        }
+        @else if(signUpForm.get('password')?.getError('pattern')){
+            <app-alert [alertType]="'password'" [alertMessage]="'Password must be 8-30 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&).'"></app-alert>
+        }
+      }
+    </div>
+    <div class="mb-4">
+      <label for="rePassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">rePassword :</label>
+      <input formControlName="rePassword" type="password" id="rePassword" class="input" placeholder="Enter your rePassword" required />
+      @if (signUpForm.get('rePassword')?.touched) {
+        @if (signUpForm.get('rePassword')?.getError('required')) {
+            <app-alert [alertType]="'rePassword'" [alertMessage]="'rePassword required'"></app-alert>
+        }
+        @else if(signUpForm.errors) {
+            <app-alert [alertType]="'rePassword'" [alertMessage]="'missmatched Password'"></app-alert>
+        }
+      }
+    </div>
+    <div class="mb-5">
+      <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone :</label>
+      <input formControlName="phone" type="tel" id="phone" class="input" placeholder="Enter your phone" required />
+      @if (signUpForm.get('phone')?.touched) {
+        @if (signUpForm.get('phone')?.getError('required')) {
+            <app-alert [alertType]="'phone'" [alertMessage]="'phone required'"></app-alert>
+        }
+        @else if(signUpForm.get('phone')?.getError('pattern')){
+            <app-alert [alertType]="'phone'" [alertMessage]="'Enter a valid Egyptian phone number starting with 010, 011, 012, or 015 and followed by 8 digits.'"></app-alert>
+        }
+      }
+    </div>
+    <div class="flex justify-end">
+      <button [disabled]="signUpForm.invalid" type="submit" class="main-btn px-3 disabled:bg-green-400 dark:disabled:bg-blue-400">Sign up
+        @if (loading) {
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+      </button>
+    </div>
+</form>

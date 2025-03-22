@@ -1,0 +1,56 @@
+<!-- order component -->
+    <form [formGroup]="checkOutInformation" (ngSubmit)="payOnline()" class="w-[85%] sm:w-[75%] md:w-[65%] lg:w-[55%] mx-auto">
+        <h1 class="text-3xl mb-7 font-bold dark:text-white"><span class="text-green-700 dark:text-blue-700">Check out</span> Information :</h1>
+        <div class="mb-4">
+          <label for="details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details :</label>
+          <input formControlName="details" type="text" id="details" class="input" placeholder="Enter Details..."/>
+          @if (checkOutInformation.get('details')?.touched) {
+            @if(checkOutInformation.get('details')?.getError('pattern')){
+                <app-alert [alertType]="'Details'" [alertMessage]="'maximum 200 characters'"></app-alert>
+            }
+          }
+        </div>
+        <div class="mb-5">
+          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone :</label>
+          <input formControlName="phone" type="tel" id="phone" class="input" placeholder="Enter phone..." required />
+          @if (checkOutInformation.get('phone')?.touched) {
+            @if (checkOutInformation.get('phone')?.getError('required')) {
+                <app-alert [alertType]="'Phone'" [alertMessage]="'phone required'"></app-alert>
+            }
+            @else if(checkOutInformation.get('phone')?.getError('pattern')){
+                <app-alert [alertType]="'Phone'" [alertMessage]="'Enter a valid Egyptian phone number starting with 010, 011, 012, or 015 and followed by 8 digits.'"></app-alert>
+            }
+          }
+        </div>
+        <div class="mb-5">
+          <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">city :</label>
+          <input formControlName="city" type="text" id="city" class="input" placeholder="Enter city..." required />
+          @if (checkOutInformation.get('city')?.touched) {
+            @if (checkOutInformation.get('city')?.getError('required')) {
+                <app-alert [alertType]="'City'" [alertMessage]="'city required'"></app-alert>
+            }
+            @else if(checkOutInformation.get('city')?.getError('pattern')){
+                <app-alert [alertType]="'City'" [alertMessage]="'City must be between 2 and 50 characters.'"></app-alert>
+            }
+          }
+        </div>
+        <div class="flex flex-wrap gap-y-4 justify-between items-center">
+          <div class="flex flex-wrap gap-x-4">
+            <button type="submit" [disabled]="checkOutInformation.invalid" class="main-btn px-3 disabled:bg-green-400 dark:disabled:bg-blue-400">Pay online
+              @if (OnlineSpinnerLoading) {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+              }
+            </button>
+            <button (click)="cashOrder()" type="button" [disabled]="checkOutInformation.invalid" class="main-btn px-3 disabled:bg-green-400 dark:disabled:bg-blue-400">Cash Order
+              @if (cashSpinnerLoading) {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+              }
+            </button>
+          </div>
+          <button (click)="cancelPayment()" type="button" class="main-btn px-3 bg-red-600 hover:bg-red-700 focus:ring-red-600">Cancel Payement
+                  @if (false) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                  }
+          </button>
+        </div>
+      </form>

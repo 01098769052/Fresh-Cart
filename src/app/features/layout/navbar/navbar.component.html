@@ -1,0 +1,48 @@
+<!-- navbar copmonent -->
+<nav appNav class="py-5 fixed top-0 right-0 left-0 z-[999] bg-white shadow-md border-b border-gray-200 dark:bg-gray-900 dark:border-gray-600 duration-[0.3s]">
+  <div class="w-[90%] mx-auto flex flex-wrap gap-y-7 justify-between items-center text-white">
+      <h1 class="w-[95%] text-3xl font-bold lg:w-auto text-black dark:text-white"><a href="#"><span class="text-green-700 dark:text-blue-700"><i class="fa-solid fa-cart-shopping me-2"></i>Fresh</span>Cart</a></h1>
+      <i (click)="dropDownNavbar()" class="w-[5%] fa-solid fa-bars text-2xl inline-block lg:w-auto lg:hidden cursor-pointer text-black dark:text-white"></i>
+        <ul #navMenu class="hidden w-full text-center flex-col items-center gap-y-3 lg:w-[60%] lg:justify-between lg:flex lg:flex-row">
+          <li routerLink="/home" routerLinkActive="routerLinkActive" class="routerLink">Home</li>
+          <li routerLink="/cart" routerLinkActive="routerLinkActive" class="routerLink">Cart</li>
+          <li routerLink="/wishList" routerLinkActive="routerLinkActive" class="routerLink">WishList</li>
+          <li routerLink="/products" routerLinkActive="routerLinkActive" class="routerLink">Products</li>
+          <li routerLink="/categories" routerLinkActive="routerLinkActive" class="routerLink">Categories</li>
+          <li routerLink="/brands" routerLinkActive="routerLinkActive" class="routerLink">Brands</li>
+          <li routerLink="/allorders" routerLinkActive="routerLinkActive" class="routerLink">All orders</li>
+      </ul>
+      <ul #navMenu class="hidden w-full text-center justify-center gap-x-5 xl:gap-x-7 lg:w-auto lg:flex">
+        <li class="relative  text-green-600 hover:text-green-700 dark:text-blue-600 dark:hover:text-blue-700">
+          <i routerLink="/cart" class="fa-solid fa-cart-plus cursor-pointer text-2xl duration-[0.2s]"></i>
+          @if (isLogin) {
+            <span class="absolute top-0 end-0 translate-x-[100%] -translate-y-[25%] text-sm font-semibold text-gray-800 dark:text-gray-300">{{cartCount}}</span>
+          }
+        </li>
+        <li>
+          <i #lightiningToggle (click)="lightiningMode()" class="fa-solid fa-moon cursor-pointer text-2xl text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white duration-[0.2s]"></i>
+        </li>
+        <li class="relative">
+          <i (click)="dropDownLanguages()" class="fa-solid fa-globe cursor-pointer text-2xl text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white duration-[0.2s]"></i>
+          <ul #languagesMenu class="hidden flex-col gap-y-1 w-36 top-[120%] left-[50%] -translate-x-[50%] absolute z-[1000] rounded-md bg-black bg-opacity-70 dark:bg-opacity-100">
+            <li class="w-full rounded-md py-1 cursor-pointer hover:text-green-700 dark:hover:text-blue-700 duration-[0.2s]">English</li>
+            <li class="w-full rounded-md py-1 cursor-pointer hover:text-green-700 dark:hover:text-blue-700 duration-[0.2s]">العربية</li>
+          </ul>
+
+        </li>
+        <li class="relative">
+          <i (click)="dropDownAccount()" class="fa-solid fa-user cursor-pointer text-2xl text-gray-600 hover:text-green-700 dark:text-gray-300 dark:hover:text-blue-700 duration-[0.2s]"></i>
+          <ul #accountMenu class="hidden flex-col gap-y-1 w-36 top-[120%] left-[50%] -translate-x-[50%] absolute z-[1000] rounded-md bg-black bg-opacity-70 dark:bg-opacity-100">
+            @if(!isLogin){
+              <li routerLink="/logIn" routerLinkActive="routerLinkActive hover:text-white dark:hover:text-white" class="w-full rounded-md py-1 cursor-pointer hover:text-green-700 dark:hover:text-blue-700 duration-[0.2s]">Log in</li>
+              <li routerLink="/signUp" routerLinkActive="routerLinkActive hover:text-white dark:hover:text-white" class="w-full rounded-md py-1 cursor-pointer hover:text-green-700 dark:hover:text-blue-700 duration-[0.2s]">Sign up</li>
+            }
+            @else {
+              <li (click)="authService.logOut()" class="w-full rounded-md py-1 cursor-pointer hover:text-red-700 duration-[0.2s]">Log out</li>
+              <li class="w-full rounded-md py-1 cursor-pointer hover:text-green-700 dark:hover:text-blue-700 duration-[0.2s]">Change password</li>
+            }
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>

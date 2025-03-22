@@ -1,0 +1,14 @@
+<!-- all order component -->
+ <section class="w-[90%] mx-auto bg-gray-100 p-3 rounded-lg">
+    <div class="mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold mb-3">{{userName}} all orders<i class="ml-1 text-green-700 fa-solid fa-cart-plus"></i></h1>
+            <h2 class="text-xl font-semibold">Total number of orders : {{allOrders.length}}</h2>
+        </div>
+    </div>
+    <ul class="flex flex-col gap-y-8">
+        @for (order of allOrders; track $index) {
+            <app-order-cart [orderCart]="order"></app-order-cart>
+        }
+    </ul>
+ </section>

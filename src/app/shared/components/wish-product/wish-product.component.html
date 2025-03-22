@@ -1,0 +1,22 @@
+<!-- resuable wishProduct Component -->
+<li class="flex justify-center flex-wrap gap-y-4 border-b-2 shadow-md rounded-md border-gray-300 sm:justify-between sm:flex-nowrap">
+    <div class="flex gap-4 items-center justify-center flex-wrap sm:flex-nowrap sm:justify-start sm:w-[70%]">
+        <img [src]="wishProduct.imageCover" [alt]="wishProduct.title" class="w-60 h-48 object-cover rounded-md sm:h-auto sm:w-24 sm:object-fill">
+        <div class="flex flex-col justify-center gap-y-2 px-3 sm:gap-y-1 sm:text-start sm:px-0">
+            <h2 class="text-xl font-semibold">{{wishProduct.title|titlecase}}</h2>
+            <span class="text-green-400 dark:text-blue-400">Price : {{wishProduct.price|currency:"EGP"}}</span>
+            <button (click)="removeFromWishList(wishProduct._id)" [disabled]="removeWishProductLoading" class="flex justify-around items-center gap-x-3 text-red-600 hover:text-red-700 w-[5rem]"><div class="flex items-center gap-x-1">Remove <i class="fa-regular fa-trash-can"></i></div>
+                @if (removeWishProductLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                }
+            </button>
+        </div>
+    </div>
+    <div class="self-center w-full sm:w-auto mb-5 sm:mb-0">
+        <button (click)="addToCart(wishProduct._id)" [disabled]="addToCartLoading" class="main-btn flex gap-x-3 justify-center items-center w-[70%] mx-auto sm:w-auto"><div class="flex items-center gap-x-2">Add to cart <i class="fa-solid fa-cart-plus"></i></div>
+            @if (addToCartLoading) {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            }
+        </button>
+    </div>
+</li>

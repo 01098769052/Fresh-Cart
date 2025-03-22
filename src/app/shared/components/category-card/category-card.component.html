@@ -1,0 +1,7 @@
+<!-- reusable categoryCard component -->
+<div (click)="loadSubCtegories()" class="p-2 rounded-md border border-black dark:border-white shadow-lg cursor-pointer hover:scale-[1.06] transition-transform duration-[0.3s]" [title]="category.name">
+    <img [src]="category.image" [alt]="category.name" class="w-full h-80 object-cover rounded-md">
+    <h2 class="mt-2 text-center text-xl font-semibold dark:text-white">{{category.name|titlecase}}</h2>
+</div>
+
+
